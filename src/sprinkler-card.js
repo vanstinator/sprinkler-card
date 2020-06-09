@@ -1,5 +1,5 @@
 import { LitElement, html } from 'lit-element';
-import { hasConfigOrEntityChanged, fireEvent } from 'custom-card-helpers';
+import { fireEvent } from 'custom-card-helpers';
 import './sprinkler-card-editor';
 import localize from './localize';
 import styles from './styles';
