@@ -92,8 +92,7 @@ class SprinklerCard extends LitElement {
     return 2;
   }
 
-  shouldUpdate(changedProps) {
-    console.log(changedProps)
+  shouldUpdate() {
     return true;
     // return hasConfigOrEntityChanged(this, changedProps);
   }
