@@ -153,6 +153,9 @@ export default css`
   }
 
   .sprinkler-name {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    vertical-align: center;
     text-align: center;
     font-weight: bold;
     margin: 10px auto 20px;
