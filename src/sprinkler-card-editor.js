@@ -28,6 +28,14 @@ export class VacuumCardEditor extends LitElement {
     return '';
   }
 
+  get _next_cycle_sensor() {
+    if (this._config) {
+      return this._config.next_cycle_sensor || '';
+    }
+
+    return '';
+  }
+
   get _watering_time_sensor() {
     if (this._config) {
       return this._config.watering_time_sensor || '';
@@ -100,13 +108,28 @@ export class VacuumCardEditor extends LitElement {
         </paper-dropdown-menu>
 
         <paper-dropdown-menu
-          label="${localize('editor.entity')}"
+          label="${localize('editor.watering_time')}"
           @value-changed=${this._valueChanged}
           .configValue=${'watering_time_sensor'}
         >
           <paper-listbox
             slot="dropdown-content"
             .selected=${sensorEntities.indexOf(this._watering_time_sensor)}
+          >
+            ${sensorEntities.map((entity) => {
+              return html` <paper-item>${entity}</paper-item> `;
+            })}
+          </paper-listbox>
+        </paper-dropdown-menu>
+
+        <paper-dropdown-menu
+          label="${localize('editor.next_cycle')}"
+          @value-changed=${this._valueChanged}
+          .configValue=${'next_cycle_sensor'}
+        >
+          <paper-listbox
+            slot="dropdown-content"
+            .selected=${sensorEntities.indexOf(this._next_cycle_sensor)}
           >
             ${sensorEntities.map((entity) => {
               return html` <paper-item>${entity}</paper-item> `;

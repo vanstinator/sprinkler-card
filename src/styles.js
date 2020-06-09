@@ -23,12 +23,6 @@ export default css`
     position: relative;
   }
 
-  .map {
-    display: block;
-    max-width: 90%;
-    image-rendering: crisp-edges;
-  }
-
   @keyframes cleaning {
     0% {
       // transform: rotate(0) translate(0);
@@ -139,11 +133,10 @@ export default css`
 
   .status {
     height: 40px;
-    display: flex;
     align-items: center;
     font-weight: bold;
-    padding: 9px 10px;
-    text-align: left;
+    padding: 10px;
+    text-align: center;
   }
 
   .status-text {
@@ -250,7 +243,7 @@ export default css`
   }
 
   .header div {
-    width: 76.66%;
+    width: 100%;
     box-sizing: border-box;
   }
 

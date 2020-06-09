@@ -1,6 +1,6 @@
 {
   "status": {
-    "watering_remaining": "minutes remaining"
+    "watering_remaining": "minutes left"
   },
   "common": {
     "name": "Sprinkler Card",
@@ -13,7 +13,8 @@
   },
   "editor": {
     "entity": "Entity (Required)",
-    "map": "Map Camera (Optional)",
+    "watering_time": "Watering Time Sensor (Optional)",
+    "next_cycle": "Next Cycle Sensor (Optional)",
     "image": "Image (Optional)",
     "compact_view": "Compact View",
     "compact_view_aria_label_on": "Toggle compact view on",

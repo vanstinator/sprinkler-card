@@ -45,6 +45,10 @@ class SprinklerCard extends LitElement {
     return this.hass.states[this.config.entity];
   }
 
+  get next_cycle_sensor() {
+    return this.hass.states[this.config.next_cycle_sensor];
+  }
+
   get watering_time_sensor() {
     return this.hass.states[this.config.watering_time_sensor];
   }
@@ -273,13 +277,12 @@ class SprinklerCard extends LitElement {
 
   render() {
     const { state } = this.entity;
-    const { battery_level, battery_icon } = this.getAttributes(
-      this.entity
-    );
 
     let localizedStatus = '';
-    if (this.watering_time_sensor) {
+    if (this.watering_time_sensor && this.entity.state === 'on') {
       localizedStatus = `${this.watering_time_sensor.state} ${localize('status.watering_remaining')}`;
+    } else if (this.next_cycle_sensor && this.next_cycle_sensor.state !== 'Off') {
+      localizedStatus = `${this.next_cycle_sensor.state}`;
     }
 
     return html`
@@ -294,9 +297,6 @@ class SprinklerCard extends LitElement {
               <span class="status-text" alt=${localizedStatus}>
                 ${localizedStatus}
               </span>
-            </div>
-            <div class="battery">
-              ${battery_level}% <ha-icon icon="${battery_icon}"></ha-icon>
             </div>
           </div>
 
