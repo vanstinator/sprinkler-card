@@ -1,3 +1,5 @@
+# I recently forked this project and development is underway converting the card to a sprinkler card. Assume things will break often
+
 # Vacuum Card
 
 [![npm version][npm-image]][npm-url]

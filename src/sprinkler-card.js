@@ -12,7 +12,7 @@ if (!customElements.get('ha-icon-button')) {
   );
 }
 
-class VacuumCard extends LitElement {
+class SprinklerCard extends LitElement {
   static get properties() {
     return {
       hass: Object,
@@ -45,8 +45,8 @@ class VacuumCard extends LitElement {
     return this.hass.states[this.config.entity];
   }
 
-  get map() {
-    return this.hass.states[this.config.map];
+  get watering_time_sensor() {
+    return this.hass.states[this.config.watering_time_sensor];
   }
 
   get image() {
@@ -93,24 +93,17 @@ class VacuumCard extends LitElement {
   }
 
   shouldUpdate(changedProps) {
-    return hasConfigOrEntityChanged(this, changedProps);
+    console.log(changedProps)
+    return true;
+    // return hasConfigOrEntityChanged(this, changedProps);
   }
 
   updated(changedProps) {
-    if (this.map) {
-      const url =
-        this.map.attributes.entity_picture + `&t=${new Date().getTime()}`;
-      const img = new Image();
-      img.onload = () => {
-        this.mapUrl = url;
-      };
-      img.src = url;
-    }
 
     if (
       changedProps.get('hass') &&
-      changedProps.get('hass').states[this.config.entity].state !==
-        this.hass.states[this.config.entity].state
+      changedProps.get('hass').states[this.config.entity].state !== this.hass.states[this.config.entity].state &&
+      changedProps.get('hass').states[this.config.watering_time_sensor].state !== this.hass.states[this.config.watering_time_sensor].state
     ) {
       this.requestInProgress = false;
     }
@@ -147,6 +140,12 @@ class VacuumCard extends LitElement {
     }
   }
 
+  toggle() {
+    this.hass.callService('switch', 'toggle', {
+      entity_id: this.config.entity
+    });
+  }
+
   getAttributes(entity) {
     const {
       status,
@@ -170,55 +169,9 @@ class VacuumCard extends LitElement {
     };
   }
 
-  renderSource() {
-    const { fan_speed: source, fan_speed_list: sources } = this.getAttributes(
-      this.entity
-    );
-
-    if (!sources) {
-      return html``;
-    }
-
-    const selected = sources.indexOf(source);
-
-    return html`
-      <paper-menu-button
-        slot="dropdown-trigger"
-        .horizontalAlign=${'right'}
-        .verticalAlign=${'top'}
-        .verticalOffset=${40}
-        .noAnimations=${true}
-        @click="${(e) => e.stopPropagation()}"
-      >
-        <paper-button class="source-menu__button" slot="dropdown-trigger">
-          <span class="source-menu__source" show=${true}>
-            ${localize(`source.${source}`) || source}
-          </span>
-          <ha-icon icon="mdi:fan"></ha-icon>
-        </paper-button>
-        <paper-listbox
-          slot="dropdown-content"
-          selected=${selected}
-          @click="${(e) => this.handleSpeed(e)}"
-        >
-          ${sources.map(
-            (item) =>
-              html`<paper-item value=${item}
-                >${localize(`source.${item}`) || item}</paper-item
-              >`
-          )}
-        </paper-listbox>
-      </paper-menu-button>
-    `;
-  }
-
-  renderMapOrImage(state) {
+  renderImage(state) {
     if (this.compactView) {
       return html``;
-    }
-
-    if (this.map) {
-      return html` <img class="map" src="${this.mapUrl}" /> `;
     }
 
     if (this.image) {
@@ -267,17 +220,9 @@ class VacuumCard extends LitElement {
       case 'on': {
         return html`
           <div class="toolbar">
-            <paper-button @click="${() => this.callService('pause')}">
-              <ha-icon icon="hass:pause"></ha-icon>
-              ${localize('common.pause')}
-            </paper-button>
-            <paper-button @click="${() => this.callService('stop')}">
+            <paper-button @click="${() => this.toggle()}">
               <ha-icon icon="hass:stop"></ha-icon>
               ${localize('common.stop')}
-            </paper-button>
-            <paper-button @click="${() => this.callService('return_to_base')}">
-              <ha-icon icon="hass:home-map-marker"></ha-icon>
-              ${localize('common.return_to_base')}
             </paper-button>
           </div>
         `;
@@ -315,51 +260,12 @@ class VacuumCard extends LitElement {
       case 'off':
       case 'idle':
       default: {
-        const { actions = [] } = this.config;
-
-        const buttons = actions.map(({ name, service, icon, service_data }) => {
-          const execute = () => {
-            const [domain, name] = service.split('.');
-            this.hass.callService(domain, name, service_data);
-          };
-          return html`<ha-icon-button
-            icon="${icon}"
-            title="${name}"
-            @click="${execute}"
-          ></ha-icon-button>`;
-        });
-
-        const dockButton = html`
-          <ha-icon-button
-            icon="hass:home-map-marker"
-            title="${localize('common.return_to_base')}"
-            class="toolbar-icon"
-            @click="${() => this.callService('return_to_base')}"
-          >
-          </ha-icon-button>
-        `;
-
         return html`
           <div class="toolbar">
-            <ha-icon-button
-              icon="hass:play"
-              title="${localize('common.start')}"
-              class="toolbar-icon"
-              @click="${() => this.callService('start')}"
-            >
-            </ha-icon-button>
-
-            <ha-icon-button
-              icon="mdi:crosshairs-gps"
-              title="${localize('common.locate')}"
-              class="toolbar-split"
-              @click="${() => this.callService('locate', false)}"
-            >
-            </ha-icon-button>
-
-            ${state === 'idle' ? dockButton : ''}
-            <div class="fill-gap"></div>
-            ${buttons}
+            <paper-button @click="${() => this.toggle()}">
+              <ha-icon icon="hass:play"></ha-icon>
+              ${localize('common.start')}
+            </paper-button>
           </div>
         `;
       }
@@ -368,10 +274,14 @@ class VacuumCard extends LitElement {
 
   render() {
     const { state } = this.entity;
-    const { status, battery_level, battery_icon } = this.getAttributes(
+    const { battery_level, battery_icon } = this.getAttributes(
       this.entity
     );
-    const localizedStatus = localize(`status.${status}`) || status;
+
+    let localizedStatus = '';
+    if (this.watering_time_sensor) {
+      localizedStatus = `${this.watering_time_sensor.state} ${localize('status.watering_remaining')}`;
+    }
 
     return html`
       <ha-card>
@@ -385,17 +295,13 @@ class VacuumCard extends LitElement {
               <span class="status-text" alt=${localizedStatus}>
                 ${localizedStatus}
               </span>
-              <paper-spinner ?active=${this.requestInProgress}></paper-spinner>
-            </div>
-            <div class="source">
-              ${this.renderSource()}
             </div>
             <div class="battery">
               ${battery_level}% <ha-icon icon="${battery_icon}"></ha-icon>
             </div>
           </div>
 
-          ${this.renderMapOrImage(state)} ${this.renderName()}
+          ${this.renderImage(state)} ${this.renderName()}
 
           <div class="stats">
             ${this.renderStats(state)}
@@ -408,11 +314,11 @@ class VacuumCard extends LitElement {
   }
 }
 
-customElements.define('sprinkler-card', VacuumCard);
+customElements.define('sprinkler-card', SprinklerCard);
 
 window.customCards = window.customCards || [];
 window.customCards.push({
-  preview: true,
+  preview: false,
   type: 'sprinkler-card',
   name: localize('common.name'),
   description: localize('common.description'),

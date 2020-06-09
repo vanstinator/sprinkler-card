@@ -1,20 +1,11 @@
 {
   "status": {
-    "Cleaning": "Reinigen",
-    "Paused": "Pausiert",
-    "Idle": "Untätig",
-    "Charging": "Aufladen",
-    "Returning home": "Rückkehr zu Dockingstation"
   },
   "common": {
     "name": "Vacuum Card",
     "description": "Vacuum card ermöglicht es Ihnen, Ihr Staubsaugerroboter zu steuern.",
     "start": "Reinigen",
-    "continue": "Weiter",
-    "pause": "Pause",
-    "stop": "Stop",
-    "return_to_base": "Dock",
-    "locate": "Staubsauger lokalisieren"
+    "stop": "Stop"
   },
   "error": {
     "missing_entity": "Angabe der Entität ist erforderlich!"

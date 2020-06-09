@@ -1,20 +1,11 @@
 {
   "status": {
-    "Cleaning": "Cleaning",
-    "Paused": "En pause",
-    "Idle": "Au repos",
-    "Charging": "En charge",
-    "Returning home": "Retour à la base"
   },
   "common": {
     "name": "Vacuum Card",
     "description": "Vacuum card vous permet de contrôller votre robot aspirateur.",
     "start": "Nettoyer",
-    "continue": "Continuer",
-    "pause": "Mettre en pause",
-    "stop": "Arrêter",
-    "return_to_base": "Retourner à la base",
-    "locate": "Localiser l'aspirateur"
+    "stop": "Arrêter"
   },
   "error": {
     "missing_entity": "Une entité est requise!"

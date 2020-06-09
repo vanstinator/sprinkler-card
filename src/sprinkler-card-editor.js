@@ -28,9 +28,9 @@ export class VacuumCardEditor extends LitElement {
     return '';
   }
 
-  get _map() {
+  get _watering_time_sensor() {
     if (this._config) {
-      return this._config.map || '';
+      return this._config.watering_time_sensor || '';
     }
 
     return '';
@@ -80,7 +80,7 @@ export class VacuumCardEditor extends LitElement {
     }
 
     const sprinklerEntities = this.getEntitiesByType('switch');
-    const cameraEntities = this.getEntitiesByType('camera');
+    const sensorEntities = this.getEntitiesByType('sensor');
 
     return html`
       <div class="card-config">
@@ -102,19 +102,20 @@ export class VacuumCardEditor extends LitElement {
         <paper-dropdown-menu
           label="${localize('editor.entity')}"
           @value-changed=${this._valueChanged}
-          .configValue=${'map'}
+          .configValue=${'watering_time_sensor'}
         >
           <paper-listbox
             slot="dropdown-content"
-            .selected=${cameraEntities.indexOf(this._map)}
+            .selected=${sensorEntities.indexOf(this._watering_time_sensor)}
           >
-            ${cameraEntities.map((entity) => {
+            ${sensorEntities.map((entity) => {
               return html` <paper-item>${entity}</paper-item> `;
             })}
           </paper-listbox>
         </paper-dropdown-menu>
 
         <paper-input
+          hidden=true
           label="${localize('editor.image')}"
           .value=${this._image}
           .configValue=${'image'}
@@ -122,6 +123,7 @@ export class VacuumCardEditor extends LitElement {
         ></paper-input>
 
         <ha-switch
+          hidden=true
           style="margin: 10px auto;"
           aria-label=${localize(
             this._compact_view

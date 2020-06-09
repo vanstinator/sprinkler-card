@@ -1,20 +1,11 @@
 {
   "status": {
-    "Cleaning": "In pulizia",
-    "Paused": "In pausa",
-    "Idle": "Inattivo",
-    "Charging": "In carica",
-    "Returning home": "In rientro alla base"
   },
   "common": {
     "name": "Vacuum Card",
     "description": "Vacuum card consente di controllare il tuo aspirapolvere.",
     "start": "Pulisci",
-    "continue": "Continua",
-    "pause": "Pausa",
-    "stop": "Stop",
-    "return_to_base": "Base",
-    "locate": "Trova aspirapolvere"
+    "stop": "Stop"
   },
   "error": {
     "missing_entity": "È necessario specificare l'entità!"

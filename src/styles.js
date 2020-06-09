@@ -102,9 +102,9 @@ export default css`
   .sprinkler {
     display: block;
     max-width: 90%;
-    max-height: 200px;
+    max-height: 150px;
     image-rendering: crisp-edges;
-    margin: 30px auto 20px auto;
+    margin: 0px auto 0px auto;
   }
 
   .sprinkler.on {
@@ -142,7 +142,7 @@ export default css`
     display: flex;
     align-items: center;
     font-weight: bold;
-    padding: 9px 20px;
+    padding: 9px 10px;
     text-align: left;
   }
 
@@ -150,13 +150,6 @@ export default css`
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
-  }
-
-  .status paper-spinner {
-    min-width: 20px;
-    width: 20px;
-    height: 20px;
-    margin-left: 9px;
   }
 
   .sprinkler-name {
@@ -254,7 +247,7 @@ export default css`
   }
 
   .header div {
-    width: 33.3%;
+    width: 76.66%;
     box-sizing: border-box;
   }
 

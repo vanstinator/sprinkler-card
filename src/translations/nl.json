@@ -1,20 +1,11 @@
 {
   "status": {
-    "Cleaning": "Aan het schoonmaken",
-    "Paused": "Gepauzeerd",
-    "Idle": "Inactief",
-    "Charging": "Aan het opladen",
-    "Returning home": "Keert terug naar dock"
   },
   "common": {
     "name": "Stofzuiger kaart",
     "description": "Stofzuiger kaart maakt het makkelijk om je robotstofzuiger te bedienen.",
     "start": "Start",
-    "continue": "Doorgaan",
-    "pause": "Pauze",
-    "stop": "Stop",
-    "return_to_base": "Terugkeren",
-    "locate": "Zoek stofzuiger"
+    "stop": "Stop"
   },
   "error": {
     "missing_entity": "Het specificeren van een entiteit is verplicht!"

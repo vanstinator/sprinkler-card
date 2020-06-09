@@ -1,27 +1,11 @@
 {
   "status": {
-    "Cleaning": "Прибирає",
-    "Paused": "Пауза",
-    "Idle": "Очікує",
-    "Charging": "Заряджається",
-    "Returning home": "Повертається"
-  },
-  "source": {
-    "Gentle": "Делікатний",
-    "Silent": "Тихий",
-    "Standard": "Стандартний",
-    "Medium": "Середній",
-    "Turbo": "Турбо"
   },
   "common": {
     "name": "Пилосос",
     "description": "Картка \"пилосос\" дозволяє керувати роботом-пилососом.",
     "start": "Clean",
-    "continue": "Продовжити",
-    "pause": "Пауза",
-    "stop": "Стоп",
-    "return_to_base": "На базу",
-    "locate": "Знайти"
+    "stop": "Стоп"
   },
   "error": {
     "missing_entity": "Об’єкт є обов’язковим полем!"
